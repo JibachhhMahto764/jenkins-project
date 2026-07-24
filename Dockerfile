@@ -7,5 +7,7 @@ RUN go build -o app
 
 FROM scratch
 COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
+COPY --from=builder /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=builder /application/app
 ENTRYPOINT["/application/app"]

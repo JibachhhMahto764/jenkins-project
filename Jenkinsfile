@@ -11,13 +11,13 @@ pipeline {
         stage('checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/JibachhhMahto764/jenkins-project'
+                    url: 'https://github.com/JibachhhMahto764/jenkins-project.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh ' docker build -t go-app v1.0 . '
+                sh ' docker build -t go-app:v1.0 . '
             }
         }
 

@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build Dcoker Image') {
             steps {
-                sh ' docker . -t go-app:v1.0'
+                sh ' docker build -t go-app:v1.0 .'
             }
         }
 

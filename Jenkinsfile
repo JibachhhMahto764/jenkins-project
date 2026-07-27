@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t go-app:v1.0 .'
+                sh 'docker build -t jibachh/main-go:v1 .'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Run container') {
             steps {
-                sh ' docker run -d -p 9090:8080 --name my-go-app go-app:v1.0 '
+                sh 'docker run -d -p 8080:8080 --name go-app jibachh/main-go:v1 '
             }
         }
 

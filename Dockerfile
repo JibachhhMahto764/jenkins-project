@@ -3,7 +3,7 @@ WORKDIR /application
 COPY . .
 RUN go mod init application 
 RUN go mod tidy
-RUN go build -o app
+RUN go build -o app ./cmd/app
 
 FROM scratch
 COPY --from=builder /etc/passwd /etc/passwd

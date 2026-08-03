@@ -1,13 +1,18 @@
-FROM golang:1.26.3 as builder
+FROM golang:1.25 AS builder
+
 WORKDIR /application
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
 COPY . .
-RUN go mod init application 
-RUN go mod tidy
-RUN go build -o app ./cmd/app
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/app
+
 
 FROM scratch
-COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
-COPY --from=builder /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
-COPY --from=builder  /application/app  /application/app 
+
+COPY --from=builder /application/app /application/app
+
 ENTRYPOINT ["/application/app"]
